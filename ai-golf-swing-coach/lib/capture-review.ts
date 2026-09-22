@@ -1,0 +1,2 @@
+export type CaptureReviewState = "ready" | "recording" | "review" | "analyzing";
+export function nextCaptureReviewState(state: CaptureReviewState, action: "start" | "stop" | "retake" | "analyze"): CaptureReviewState { if (action === "start" && state === "ready") return "recording"; if (action === "stop" && state === "recording") return "review"; if (action === "retake" && state === "review") return "ready"; if (action === "analyze" && state === "review") return "analyzing"; return state; }

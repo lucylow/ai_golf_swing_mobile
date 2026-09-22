@@ -1,0 +1,12 @@
+export type StageOutput = { stage: "pose" | "metrics" | "faults" | "recommendations"; title: string; detail: string; value?: string; tone: "good" | "neutral" | "attention" };
+export const defaultStageOutputs: StageOutput[] = [
+  { stage: "pose", title: "Body tracking", detail: "Full body stayed in frame", value: "Ready", tone: "good" },
+  { stage: "metrics", title: "Tempo", detail: "Backswing to downswing ratio", value: "3.1:1", tone: "good" },
+  { stage: "faults", title: "Primary focus", detail: "Create more space through impact", value: "Early extension", tone: "attention" },
+  { stage: "recommendations", title: "Next drill", detail: "Step-through drill", value: "6 min", tone: "neutral" },
+];
+export function serializeStageOutputs(outputs: StageOutput[] = defaultStageOutputs) { return encodeURIComponent(JSON.stringify(outputs)); }
+export function stageOutputsToMetrics(outputs: StageOutput[] = defaultStageOutputs) { return outputs.map((item) => ({ label: item.title, value: item.value ?? "Not available", delta: item.detail, tone: item.tone === "attention" ? "warn" as const : item.tone === "good" ? "good" as const : "neutral" as const })); }
+export function deriveSwingScore(outputs: StageOutput[] = defaultStageOutputs): number { if (!outputs.length) return 0; const total = outputs.reduce((sum, item) => sum + (item.tone === "good" ? 100 : item.tone === "neutral" ? 80 : 60), 0); return Math.round(total / outputs.length); }
+function isStageOutput(value: unknown): value is StageOutput { if (!value || typeof value !== "object") return false; const candidate = value as Record<string, unknown>; return (candidate.stage === "pose" || candidate.stage === "metrics" || candidate.stage === "faults" || candidate.stage === "recommendations") && typeof candidate.title === "string" && typeof candidate.detail === "string" && (candidate.value === undefined || typeof candidate.value === "string") && (candidate.tone === "good" || candidate.tone === "neutral" || candidate.tone === "attention"); }
+export function parseStageOutputs(value?: string | string[], onError?: (error: unknown) => void): StageOutput[] { if (!value) return defaultStageOutputs; try { const parsed = JSON.parse(Array.isArray(value) ? value[0] : value) as unknown; if (Array.isArray(parsed) && parsed.every(isStageOutput)) return parsed; onError?.(new Error("Invalid analysis stage output shape")); return defaultStageOutputs; } catch (error) { onError?.(error); return defaultStageOutputs; } }
