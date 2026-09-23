@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function CalendarStrip({selected,onSelect}:{selected:number;onSelect:(n:number)=>void}){return <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.row}>{Array.from({length:9},(_,i)=>i+18).map(d=><Pressable key={d} onPress={()=>onSelect(d)} style={[s.day,d===selected&&s.active]}><Text style={[s.num,d===selected&&s.activeText]}>{d}</Text><Text style={[s.dot,d===selected&&s.activeDot]}>•</Text></Pressable>)}</ScrollView>}
+const s=StyleSheet.create({row:{gap:7},day:{width:43,height:57,borderRadius:15,borderWidth:1,borderColor:V2.colors.border,backgroundColor:V2.colors.surface,alignItems:'center',justifyContent:'center'},active:{backgroundColor:V2.colors.lime,borderColor:V2.colors.lime},num:{color:V2.colors.white,fontSize:14,fontWeight:'900'},dot:{color:V2.colors.lime,fontSize:16,lineHeight:12},activeText:{color:V2.colors.ink},activeDot:{color:V2.colors.ink}});

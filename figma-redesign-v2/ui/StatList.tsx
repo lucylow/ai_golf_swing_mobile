@@ -1,0 +1,5 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function StatList({rows}:{rows:{label:string;value:string;sub?:string}[]}){return <View>{rows.map((r,i)=><View key={r.label} style={[s.row,i>0&&s.border]}><Text style={s.label}>{r.label}</Text><View style={s.right}><Text style={s.value}>{r.value}</Text>{r.sub?<Text style={s.sub}>{r.sub}</Text>:null}</View></View>)}</View>}
+const s=StyleSheet.create({row:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',paddingVertical:11},border:{borderTopWidth:1,borderTopColor:V2.colors.border},label:{color:V2.colors.muted,fontSize:9,fontWeight:'800'},right:{alignItems:'flex-end'},value:{color:V2.colors.white,fontSize:11,fontWeight:'900'},sub:{color:V2.colors.dim,fontSize:7,marginTop:2}});

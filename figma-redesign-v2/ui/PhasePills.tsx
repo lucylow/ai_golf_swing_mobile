@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { V2 } from '../infra/theme';
+export function PhasePills({phases,active,onChange}:{phases:string[];active:string;onChange:(p:string)=>void}){return <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.row}>{phases.map(p=><Pressable key={p} onPress={()=>onChange(p)} style={[s.pill,active===p&&s.active]}><Text style={[s.text,active===p&&s.activeText]}>{p}</Text></Pressable>)}</ScrollView>}
+const s=StyleSheet.create({row:{gap:6,paddingVertical:2},pill:{paddingVertical:7,paddingHorizontal:10,borderRadius:999,borderWidth:1,borderColor:V2.colors.border,backgroundColor:V2.colors.surface},active:{backgroundColor:V2.colors.limeGlass,borderColor:'rgba(182,255,24,.23)'},text:{color:V2.colors.dim,fontSize:8,fontWeight:'900'},activeText:{color:V2.colors.lime}});

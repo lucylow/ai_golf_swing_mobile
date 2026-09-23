@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function PlanRow({day,title,duration,done,onToggle}:{day:string;title:string;duration:string;done:boolean;onToggle:()=>void}){return <Pressable onPress={onToggle} style={s.row}><View style={[s.check,done&&s.done]}><Text style={s.checkTxt}>{done?'✓':''}</Text></View><View style={s.copy}><Text style={s.day}>{day}</Text><Text style={[s.title,done&&s.titleDone]}>{title}</Text></View><Text style={s.time}>{duration}</Text></Pressable>}
+const s=StyleSheet.create({row:{paddingVertical:10,flexDirection:'row',alignItems:'center',gap:10},check:{width:23,height:23,borderRadius:7,borderWidth:1,borderColor:V2.colors.borderStrong,alignItems:'center',justifyContent:'center'},done:{backgroundColor:V2.colors.lime,borderColor:V2.colors.lime},checkTxt:{color:V2.colors.ink,fontWeight:'900'},copy:{flex:1},day:{color:V2.colors.dim,fontSize:7,fontWeight:'900',letterSpacing:.7},title:{color:V2.colors.text,fontSize:10,fontWeight:'800',marginTop:2},titleDone:{color:V2.colors.muted},time:{color:V2.colors.dim,fontSize:8,fontWeight:'900'}});

@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text } from 'react-native';
+import { V2 } from '../infra/theme';
+export function PaywallPlan({title,price,selected,onPress}:{title:string;price:string;selected:boolean;onPress:()=>void}){return <Pressable onPress={onPress} style={[s.card,selected&&s.active]}><Text style={[s.title,selected&&s.activeTxt]}>{title}</Text><Text style={[s.price,selected&&s.activeTxt]}>{price}</Text></Pressable>}
+const s=StyleSheet.create({card:{padding:15,borderRadius:17,borderWidth:1,borderColor:V2.colors.border,backgroundColor:V2.colors.surface,flexDirection:'row',justifyContent:'space-between',alignItems:'center'},active:{backgroundColor:V2.colors.lime,borderColor:V2.colors.lime},title:{color:V2.colors.white,fontSize:10,fontWeight:'900'},price:{color:V2.colors.muted,fontSize:10,fontWeight:'800'},activeTxt:{color:V2.colors.ink}});

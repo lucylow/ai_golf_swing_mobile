@@ -1,0 +1,7 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ScoreCircle } from './ScoreCircle';
+import { V2 } from '../infra/theme';
+import type { Session } from '../infra/types';
+export function SessionCard({session,onPress}:{session:Session;onPress?:()=>void}){return <Pressable onPress={onPress} style={({pressed})=>[s.card,pressed&&s.pressed]}><View style={s.meta}><Text style={s.date}>{session.date}</Text><Text style={s.club}>{session.club}</Text><Text style={s.focus}>{session.focus}</Text></View><View style={s.right}><ScoreCircle score={session.score} size={58}/><Text style={s.swings}>{session.swings} swings · {session.duration}</Text></View></Pressable>}
+const s=StyleSheet.create({card:{backgroundColor:V2.colors.surface,borderWidth:1,borderColor:V2.colors.border,borderRadius:18,padding:13,flexDirection:'row',gap:12},meta:{flex:1,justifyContent:'center'},date:{color:V2.colors.dim,fontSize:8,fontWeight:'800'},club:{color:V2.colors.white,fontSize:14,fontWeight:'900',marginTop:3},focus:{color:V2.colors.lime,fontSize:9,fontWeight:'900',marginTop:6},right:{alignItems:'flex-end',gap:6},swings:{color:V2.colors.dim,fontSize:7,fontWeight:'800'},pressed:{opacity:.84}});

@@ -1,0 +1,5 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function ProgressRing({value,label,size=92}:{value:number;label:string;size?:number}){return <View style={[s.ring,{width:size,height:size,borderRadius:size/2}]}><View style={[s.inner,{width:size-14,height:size-14,borderRadius:(size-14)/2}]}><Text style={s.value}>{value}</Text><Text style={s.label}>{label}</Text></View></View>}
+const s=StyleSheet.create({ring:{borderWidth:6,borderColor:V2.colors.surface3,borderTopColor:V2.colors.lime,borderRightColor:V2.colors.lime,alignItems:'center',justifyContent:'center'},inner:{backgroundColor:V2.colors.surface,alignItems:'center',justifyContent:'center'},value:{color:V2.colors.white,fontSize:21,fontWeight:'900'},label:{color:V2.colors.dim,fontSize:7,fontWeight:'900',marginTop:1,letterSpacing:.7}});

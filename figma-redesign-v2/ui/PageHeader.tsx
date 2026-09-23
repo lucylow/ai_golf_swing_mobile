@@ -1,0 +1,6 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { V2 } from '../infra/theme';
+export function PageHeader({title,eyebrow,back=false,action}:{title:string;eyebrow?:string;back?:boolean;action?:()=>void}){const router=useRouter();return <View style={s.row}><Pressable accessibilityRole="button" onPress={()=>back&&router.back()} style={[s.back,{opacity:back?1:0}]}><Text style={s.backTxt}>‹</Text></Pressable><View style={s.center}>{eyebrow?<Text style={s.eyebrow}>{eyebrow}</Text>:null}<Text style={s.title}>{title}</Text></View><Pressable onPress={action} disabled={!action} style={[s.action,{opacity:action?1:0}]}><Text style={s.actionTxt}>•••</Text></Pressable></View>}
+const s=StyleSheet.create({row:{height:58,flexDirection:'row',alignItems:'center'},back:{width:38,height:38,borderRadius:19,backgroundColor:V2.colors.surface,alignItems:'center',justifyContent:'center'},backTxt:{color:V2.colors.white,fontSize:28,marginTop:-2},center:{flex:1,alignItems:'center'},eyebrow:{color:V2.colors.lime,fontSize:8,fontWeight:'900',letterSpacing:1.3},title:{color:V2.colors.white,fontSize:18,fontWeight:'900',marginTop:1},action:{width:38,height:38,alignItems:'center',justifyContent:'center'},actionTxt:{color:V2.colors.muted,fontSize:14,letterSpacing:2}});

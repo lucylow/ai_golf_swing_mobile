@@ -1,0 +1,7 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import type { Metric } from '../infra/types';
+import { DeltaPill, MetricBar, MetricValue } from '.';
+import { tone,V2 } from '../infra/theme';
+export function MetricRow({metric,onPress}:{metric:Metric;onPress?:()=>void}){return <Pressable onPress={onPress} style={({pressed})=>[s.row,pressed&&s.pressed]}><View style={s.dotWrap}><View style={[s.dot,{backgroundColor:tone(metric.tone)}]}/></View><View style={s.main}><View style={s.head}><View style={s.nameWrap}><Text style={s.name}>{metric.label}</Text><Text style={s.note}>{metric.note}</Text></View><MetricValue value={metric.value} delta={metric.delta} t={metric.tone}/></View><MetricBar label="Score" value={metric.score} t={metric.tone}/></View><DeltaPill value={metric.delta} direction={metric.direction}/></Pressable>}
+const s=StyleSheet.create({row:{backgroundColor:V2.colors.surface,borderWidth:1,borderColor:V2.colors.border,borderRadius:17,padding:13,flexDirection:'row',gap:9},pressed:{opacity:.85},dotWrap:{paddingTop:4},dot:{width:7,height:7,borderRadius:4},main:{flex:1,gap:8},head:{flexDirection:'row',gap:8},nameWrap:{flex:1},name:{color:V2.colors.white,fontSize:11,fontWeight:'900'},note:{color:V2.colors.dim,fontSize:8,lineHeight:12,marginTop:3}});

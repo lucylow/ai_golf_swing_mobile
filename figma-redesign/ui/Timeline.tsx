@@ -1,0 +1,5 @@
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { FIGMA } from "../theme";
+export function Timeline({items}:{items:Array<{label:string;value:string;active?:boolean}>}){return <View style={styles.wrap}>{items.map((item,i)=><View key={item.label} style={styles.item}><View style={styles.lineCol}><View style={[styles.dot,item.active&&styles.active]} />{i<items.length-1?<View style={styles.line}/>:null}</View><View style={styles.copy}><Text style={[styles.label,item.active&&styles.activeText]}>{item.label}</Text><Text style={styles.value}>{item.value}</Text></View></View>)}</View>}
+const styles=StyleSheet.create({wrap:{paddingTop:2},item:{minHeight:54,flexDirection:"row"},lineCol:{width:18,alignItems:"center"},dot:{width:8,height:8,borderRadius:4,backgroundColor:FIGMA.colors.borderStrong},active:{backgroundColor:FIGMA.colors.lime},line:{width:1,flex:1,backgroundColor:FIGMA.colors.border},copy:{paddingLeft:8,paddingBottom:8},label:{color:FIGMA.colors.textSoft,fontSize:9,fontWeight:"800"},activeText:{color:FIGMA.colors.lime},value:{color:FIGMA.colors.muted,fontSize:8,marginTop:3}});

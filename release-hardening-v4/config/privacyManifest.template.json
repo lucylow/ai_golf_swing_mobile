@@ -1,0 +1,6 @@
+{
+  "NOTE": "Do not copy this file blindly. Audit the final app and every third-party SDK, then declare only the required-reason API categories and approved reasons that accurately match actual usage.",
+  "NSPrivacyTracking": false,
+  "NSPrivacyCollectedDataTypes": [],
+  "NSPrivacyAccessedAPITypes": []
+}

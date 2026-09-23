@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function CoachActionCard({title,body,label,onPress}:{title:string;body:string;label:string;onPress?:()=>void}){return <View style={s.card}><View style={s.copy}><Text style={s.title}>{title}</Text><Text style={s.body}>{body}</Text></View><Pressable onPress={onPress} style={({pressed})=>[s.cta,pressed&&s.pressed]}><Text style={s.ctaText}>{label}</Text></Pressable></View>}
+const s=StyleSheet.create({card:{backgroundColor:V2.colors.surface,borderWidth:1,borderColor:V2.colors.border,borderRadius:18,padding:15,flexDirection:'row',gap:12,alignItems:'center'},copy:{flex:1},title:{color:V2.colors.white,fontSize:13,fontWeight:'900'},body:{color:V2.colors.dim,fontSize:9,lineHeight:14,marginTop:5},cta:{minWidth:70,height:34,borderRadius:999,backgroundColor:V2.colors.lime,alignItems:'center',justifyContent:'center'},ctaText:{color:V2.colors.ink,fontSize:8,fontWeight:'900'},pressed:{opacity:.75}});

@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function OverlayControl({label,value,onToggle}:{label:string;value:boolean;onToggle:()=>void}){return <Pressable onPress={onToggle} style={s.row}><Text style={s.label}>{label}</Text><View style={[s.check,value&&s.on]}><Text style={s.checkTxt}>{value?'✓':''}</Text></View></Pressable>}
+const s=StyleSheet.create({row:{minHeight:42,flexDirection:'row',alignItems:'center',justifyContent:'space-between'},label:{color:V2.colors.text,fontSize:9,fontWeight:'800'},check:{width:23,height:23,borderRadius:7,borderWidth:1,borderColor:V2.colors.borderStrong,alignItems:'center',justifyContent:'center'},on:{backgroundColor:V2.colors.lime,borderColor:V2.colors.lime},checkTxt:{color:V2.colors.ink,fontSize:12,fontWeight:'900'}});

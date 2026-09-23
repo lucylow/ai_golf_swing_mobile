@@ -1,0 +1,5 @@
+import React from 'react';
+import { Animated, Pressable, StyleSheet, Text, ViewStyle } from 'react-native';
+import { V2 } from '../infra/theme';
+export function LimeCTA({label,onPress,style,compact=false}:{label:string;onPress?:()=>void;style?:ViewStyle;compact?:boolean}){return <Pressable onPress={onPress} style={({pressed})=>[s.btn,compact&&s.compact,style,pressed&&s.pressed]}><Text style={s.text}>{label}</Text><Text style={s.arrow}>›</Text></Pressable>}
+const s=StyleSheet.create({btn:{minHeight:48,borderRadius:999,backgroundColor:V2.colors.lime,paddingHorizontal:18,flexDirection:'row',alignItems:'center',justifyContent:'center',gap:8},compact:{minHeight:38,paddingHorizontal:14},text:{color:V2.colors.ink,fontSize:11,fontWeight:'900',letterSpacing:.8},arrow:{color:V2.colors.ink,fontSize:18,fontWeight:'900',marginTop:-2},pressed:{opacity:.76,transform:[{scale:.98}]}});

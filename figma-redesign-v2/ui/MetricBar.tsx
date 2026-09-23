@@ -1,0 +1,5 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { tone, type V2Tone, V2 } from '../infra/theme';
+export function MetricBar({label,value,t='positive'}:{label:string;value:number;t?:V2Tone}){return <View style={s.wrap}><View style={s.top}><Text style={s.label}>{label}</Text><Text style={[s.value,{color:tone(t)}]}>{Math.round(value)}</Text></View><View style={s.track}><View style={[s.fill,{width:`${Math.max(0,Math.min(100,value))}%`,backgroundColor:tone(t)}]}/></View></View>}
+const s=StyleSheet.create({wrap:{gap:6},top:{flexDirection:'row',justifyContent:'space-between'},label:{color:V2.colors.dim,fontSize:8,fontWeight:'800',letterSpacing:.4},value:{fontSize:9,fontWeight:'900'},track:{height:6,borderRadius:9,backgroundColor:V2.colors.surface3,overflow:'hidden'},fill:{height:'100%',borderRadius:9}});

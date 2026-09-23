@@ -1,0 +1,133 @@
+export interface MockPaywallPlan {
+  id: string;
+  name: string;
+  price: string;
+  cadence: string;
+  headline: string;
+  features: string[];
+  cta: string;
+  highlighted: boolean;
+}
+
+export const mockPaywallPlan: MockPaywallPlan[] = [
+  {
+    id: 'paywallPlans-001',
+    name: 'Experiment 01',
+    price: 'Synthetic price value 001',
+    cadence: ['monthly','annual'][0 % 2],
+    headline: 'Synthetic headline value 001',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-002',
+    name: 'Experiment 02',
+    price: 'Synthetic price value 002',
+    cadence: ['monthly','annual'][1 % 2],
+    headline: 'Synthetic headline value 002',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: true,
+  },
+  {
+    id: 'paywallPlans-003',
+    name: 'Experiment 03',
+    price: 'Synthetic price value 003',
+    cadence: ['monthly','annual'][2 % 2],
+    headline: 'Synthetic headline value 003',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-004',
+    name: 'Experiment 04',
+    price: 'Synthetic price value 004',
+    cadence: ['monthly','annual'][3 % 2],
+    headline: 'Synthetic headline value 004',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-005',
+    name: 'Experiment 05',
+    price: 'Synthetic price value 005',
+    cadence: ['monthly','annual'][4 % 2],
+    headline: 'Synthetic headline value 005',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: true,
+  },
+  {
+    id: 'paywallPlans-006',
+    name: 'Experiment 06',
+    price: 'Synthetic price value 006',
+    cadence: ['monthly','annual'][5 % 2],
+    headline: 'Synthetic headline value 006',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-007',
+    name: 'Experiment 07',
+    price: 'Synthetic price value 007',
+    cadence: ['monthly','annual'][6 % 2],
+    headline: 'Synthetic headline value 007',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-008',
+    name: 'Experiment 08',
+    price: 'Synthetic price value 008',
+    cadence: ['monthly','annual'][7 % 2],
+    headline: 'Synthetic headline value 008',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: true,
+  },
+  {
+    id: 'paywallPlans-009',
+    name: 'Experiment 09',
+    price: 'Synthetic price value 009',
+    cadence: ['monthly','annual'][8 % 2],
+    headline: 'Synthetic headline value 009',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-010',
+    name: 'Experiment 10',
+    price: 'Synthetic price value 010',
+    cadence: ['monthly','annual'][9 % 2],
+    headline: 'Synthetic headline value 010',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+  {
+    id: 'paywallPlans-011',
+    name: 'Experiment 11',
+    price: 'Synthetic price value 011',
+    cadence: ['monthly','annual'][10 % 2],
+    headline: 'Synthetic headline value 011',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: true,
+  },
+  {
+    id: 'paywallPlans-012',
+    name: 'Experiment 12',
+    price: 'Synthetic price value 012',
+    cadence: ['monthly','annual'][11 % 2],
+    headline: 'Synthetic headline value 012',
+    features: ['A','B','C'],
+    cta: 'Start Pro',
+    highlighted: false,
+  },
+];

@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function InsightCard({eyebrow,title,body,onPress}:{eyebrow:string;title:string;body:string;onPress?:()=>void}){return <Pressable onPress={onPress} style={({pressed})=>[s.card,pressed&&s.pressed]}><Text style={s.eyebrow}>{eyebrow}</Text><Text style={s.title}>{title}</Text><Text style={s.body}>{body}</Text></Pressable>}
+const s=StyleSheet.create({card:{padding:15,borderRadius:18,backgroundColor:V2.colors.limeGlass,borderWidth:1,borderColor:'rgba(182,255,24,.18)'},eyebrow:{color:V2.colors.lime,fontSize:8,fontWeight:'900',letterSpacing:1},title:{color:V2.colors.white,fontSize:14,fontWeight:'900',marginTop:6},body:{color:V2.colors.muted,fontSize:9,lineHeight:14,marginTop:5},pressed:{opacity:.82}});

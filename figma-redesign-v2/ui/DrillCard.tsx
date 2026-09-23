@@ -1,0 +1,7 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import type { Drill } from '../infra/types';
+import { V2 } from '../infra/theme';
+import { Badge } from './Badge';
+export function DrillCard({drill,onPress}:{drill:Drill;onPress?:()=>void}){return <Pressable onPress={onPress} style={({pressed})=>[s.card,pressed&&s.pressed]}><View style={s.top}><View style={s.icon}><Text style={s.iconTxt}>↻</Text></View><View style={s.copy}><Text style={s.title}>{drill.title}</Text><Text style={s.focus}>{drill.focus}</Text></View>{drill.favorite?<Text style={s.star}>★</Text>:null}</View><Text style={s.cue}>{drill.cue}</Text><View style={s.bottom}><Badge label={drill.level}/><Text style={s.time}>{drill.minutes} min</Text></View></Pressable>}
+const s=StyleSheet.create({card:{backgroundColor:V2.colors.surface,borderWidth:1,borderColor:V2.colors.border,borderRadius:18,padding:14,gap:10},top:{flexDirection:'row',alignItems:'center',gap:10},icon:{width:42,height:42,borderRadius:13,backgroundColor:V2.colors.limeGlass,alignItems:'center',justifyContent:'center'},iconTxt:{color:V2.colors.lime,fontSize:19,fontWeight:'900'},copy:{flex:1},title:{color:V2.colors.white,fontSize:13,fontWeight:'900'},focus:{color:V2.colors.dim,fontSize:8,fontWeight:'800',marginTop:3},star:{color:V2.colors.lime,fontSize:13},cue:{color:V2.colors.muted,fontSize:9,lineHeight:14},bottom:{flexDirection:'row',justifyContent:'space-between',alignItems:'center'},time:{color:V2.colors.dim,fontSize:8,fontWeight:'900'},pressed:{opacity:.84}});

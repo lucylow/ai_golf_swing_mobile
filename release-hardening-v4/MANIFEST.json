@@ -1,0 +1,10 @@
+{
+  "pass": "release-hardening-v4",
+  "assumption": "Figma visual redesign is already integrated.",
+  "new_files": 228,
+  "typescript_and_tsx_files": 213,
+  "code_lines_ts_tsx_js_json": 29346,
+  "scenario_modules": 80,
+  "scenario_test_modules": 80,
+  "purpose": "iOS/TestFlight release hardening and error handling"
+}

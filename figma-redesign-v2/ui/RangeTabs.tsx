@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { V2 } from '../infra/theme';
+export function RangeTabs({items=['7 DAYS','30 DAYS','90 DAYS','ALL TIME'],active,onChange}:{items?:string[];active:string;onChange:(v:string)=>void}){return <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.row}>{items.map(x=><Pressable key={x} onPress={()=>onChange(x)} style={[s.tab,active===x&&s.active]}><Text style={[s.text,active===x&&s.activeText]}>{x}</Text></Pressable>)}</ScrollView>}
+const s=StyleSheet.create({row:{gap:7},tab:{paddingHorizontal:11,paddingVertical:7,borderRadius:999,borderWidth:1,borderColor:V2.colors.border,backgroundColor:V2.colors.surface},active:{backgroundColor:V2.colors.limeGlass,borderColor:'rgba(182,255,24,.25)'},text:{color:V2.colors.dim,fontSize:8,fontWeight:'900'},activeText:{color:V2.colors.lime}});

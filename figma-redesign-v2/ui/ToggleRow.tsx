@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function ToggleRow({title,sub,value,onChange}:{title:string;sub?:string;value:boolean;onChange:(v:boolean)=>void}){return <Pressable onPress={()=>onChange(!value)} style={s.row}><View style={s.copy}><Text style={s.title}>{title}</Text>{sub?<Text style={s.sub}>{sub}</Text>:null}</View><View style={[s.track,value&&s.on]}><View style={[s.thumb,value&&s.thumbOn]}/></View></Pressable>}
+const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',paddingVertical:12},copy:{flex:1},title:{color:V2.colors.text,fontSize:10,fontWeight:'800'},sub:{color:V2.colors.dim,fontSize:8,marginTop:3},track:{width:43,height:25,borderRadius:13,backgroundColor:V2.colors.surface3,padding:3,justifyContent:'center'},on:{backgroundColor:V2.colors.lime},thumb:{width:19,height:19,borderRadius:10,backgroundColor:V2.colors.white},thumbOn:{alignSelf:'flex-end',backgroundColor:V2.colors.ink}});

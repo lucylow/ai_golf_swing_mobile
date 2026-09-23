@@ -1,0 +1,5 @@
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function ThumbRow({items}:{items:{title:string;score:number}[]}){return <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={s.row}>{items.map((x,i)=><View key={i} style={s.card}><View style={s.preview}><Text style={s.previewTxt}>SWING</Text></View><Text style={s.title}>{x.title}</Text><Text style={s.score}>{x.score}/100</Text></View>)}</ScrollView>}
+const s=StyleSheet.create({row:{gap:9},card:{width:124},preview:{height:74,borderRadius:14,backgroundColor:V2.colors.surface2,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:V2.colors.border},previewTxt:{color:V2.colors.dim,fontSize:8,fontWeight:'900',letterSpacing:1.2},title:{color:V2.colors.text,fontSize:9,fontWeight:'900',marginTop:6},score:{color:V2.colors.lime,fontSize:8,fontWeight:'900',marginTop:2}});

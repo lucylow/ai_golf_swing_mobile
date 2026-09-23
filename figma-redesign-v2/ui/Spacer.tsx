@@ -1,0 +1,3 @@
+import React from 'react';
+import { View } from 'react-native';
+export function Spacer({size=10}:{size?:number}){return <View style={{height:size}}/>}

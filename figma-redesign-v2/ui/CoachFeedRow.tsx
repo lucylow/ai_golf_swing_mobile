@@ -1,0 +1,6 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import type { FeedItem } from '../infra/types';
+import { V2,tone } from '../infra/theme';
+export function CoachFeedRow({item,onPress}:{item:FeedItem;onPress?:()=>void}){return <Pressable onPress={onPress} style={({pressed})=>[s.row,pressed&&s.pressed]}><View style={[s.dot,{backgroundColor:tone(item.tone)}]}/><View style={s.copy}><Text style={s.title}>{item.title}{item.unread?<Text style={s.unread}>  •</Text>:null}</Text><Text style={s.body}>{item.body}</Text></View><Text style={s.time}>{item.time}</Text></Pressable>}
+const s=StyleSheet.create({row:{paddingVertical:12,flexDirection:'row',gap:10,alignItems:'flex-start'},dot:{width:8,height:8,borderRadius:4,marginTop:4},copy:{flex:1},title:{color:V2.colors.white,fontSize:10,fontWeight:'900'},unread:{color:V2.colors.lime},body:{color:V2.colors.dim,fontSize:8,lineHeight:13,marginTop:3},time:{color:V2.colors.dim,fontSize:7,fontWeight:'800'},pressed:{opacity:.82}});

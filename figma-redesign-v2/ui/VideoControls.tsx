@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function VideoControls({playing,onToggle}:{playing:boolean;onToggle:()=>void}){return <View style={s.row}><Pressable onPress={onToggle} style={s.play}><Text style={s.playTxt}>{playing?'Ⅱ':'▶'}</Text></Pressable><Text style={s.meta}>0:07 / 0:12</Text><View style={s.speed}><Text style={s.speedText}>1×</Text></View></View>}
+const s=StyleSheet.create({row:{flexDirection:'row',alignItems:'center',gap:10,marginTop:10},play:{width:36,height:36,borderRadius:18,backgroundColor:V2.colors.lime,alignItems:'center',justifyContent:'center'},playTxt:{color:V2.colors.ink,fontWeight:'900',fontSize:12},meta:{color:V2.colors.muted,fontSize:9,fontWeight:'800'},speed:{marginLeft:'auto',borderRadius:999,borderWidth:1,borderColor:V2.colors.border,paddingHorizontal:10,paddingVertical:5},speedText:{color:V2.colors.text,fontSize:8,fontWeight:'900'}});

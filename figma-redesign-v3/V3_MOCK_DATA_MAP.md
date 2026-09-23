@@ -1,0 +1,24 @@
+# V3 mock route map
+
+- `/mock-data-lab-v3` → `MockDataDashboardScreen`
+- `/mock-golfers-v3` → `MockGolferProfilesScreen`
+- `/mock-sessions-v3` → `MockSessionArchiveScreen`
+- `/mock-swings-v3` → `MockSwingTimelineScreen`
+- `/mock-metrics-v3` → `MockMetricsHistoryScreen`
+- `/mock-phases-v3` → `MockPhaseLibraryScreen`
+- `/mock-clubs-v3` → `MockClubBagScreen`
+- `/mock-drills-v3` → `MockDrillCatalogScreen`
+- `/mock-goals-v3` → `MockGoalBoardScreen`
+- `/mock-coach-v3` → `MockCoachInboxScreen`
+- `/mock-practice-v3` → `MockPracticePlannerScreen`
+- `/mock-devices-v3` → `MockDeviceCenterScreen`
+- `/mock-courses-v3` → `MockCourseBookScreen`
+- `/mock-achievements-v3` → `MockAchievementWallScreen`
+- `/mock-weather-v3` → `MockWeatherBookScreen`
+- `/mock-notifications-v3` → `MockNotificationCenterScreen`
+- `/mock-paywall-v3` → `MockPaywallLabScreen`
+- `/mock-compare-v3` → `MockCompareBenchScreen`
+- `/mock-range-v3` → `MockRangeLaneScreen`
+- `/mock-export-v3` → `MockExportLabScreen`
+- `/mock-feedback-v3` → `MockFeedbackLabScreen`
+- `/mock-experiments-v3` → `MockExperimentLabScreen`

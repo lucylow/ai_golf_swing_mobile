@@ -1,0 +1,5 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { tone,type V2Tone,V2 } from '../infra/theme';
+export function GoalMeter({current,target,unit,t='positive'}:{current:number;target:number;unit:string;t?:V2Tone}){const pct=Math.min(100,(current/Math.max(1,target))*100);return <View style={s.wrap}><View style={s.labels}><Text style={s.current}>{current} {unit}</Text><Text style={s.target}>Target {target}</Text></View><View style={s.track}><View style={[s.fill,{width:`${pct}%`,backgroundColor:tone(t)}]}/></View></View>}
+const s=StyleSheet.create({wrap:{gap:6},labels:{flexDirection:'row',justifyContent:'space-between'},current:{color:V2.colors.text,fontSize:9,fontWeight:'900'},target:{color:V2.colors.dim,fontSize:8,fontWeight:'800'},track:{height:7,borderRadius:8,overflow:'hidden',backgroundColor:V2.colors.surface3},fill:{height:'100%',borderRadius:8}});

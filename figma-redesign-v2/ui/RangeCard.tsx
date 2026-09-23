@@ -1,0 +1,5 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { V2 } from '../infra/theme';
+export function RangeCard({title,sub,active,onPress}:{title:string;sub:string;active:boolean;onPress:()=>void}){return <Pressable onPress={onPress} style={[s.card,active&&s.active]}><View style={[s.radio,active&&s.radioActive]}>{active?<View style={s.dot}/>:null}</View><View style={s.copy}><Text style={s.title}>{title}</Text><Text style={s.sub}>{sub}</Text></View></Pressable>}
+const s=StyleSheet.create({card:{flexDirection:'row',alignItems:'center',gap:11,padding:14,borderWidth:1,borderColor:V2.colors.border,borderRadius:18,backgroundColor:V2.colors.surface},active:{borderColor:'rgba(182,255,24,.25)',backgroundColor:V2.colors.limeGlass},radio:{width:19,height:19,borderRadius:10,borderWidth:1,borderColor:V2.colors.borderStrong,alignItems:'center',justifyContent:'center'},radioActive:{borderColor:V2.colors.lime},dot:{width:9,height:9,borderRadius:5,backgroundColor:V2.colors.lime},copy:{flex:1},title:{color:V2.colors.white,fontSize:11,fontWeight:'900'},sub:{color:V2.colors.dim,fontSize:8,marginTop:3}});
