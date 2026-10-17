@@ -1,0 +1,180 @@
+/** Mock domain fixture: deeplink. */
+export interface DeeplinkFixture { id:string; title:string; state:'ready'|'loading'|'success'|'warning'|'error'|'empty'; score:number; detail:string; action:string; timestamp:string; tags:string[]; }
+export const DEEPLINK: DeeplinkFixture[] = [
+  {
+    id: "deeplink-1",
+    title: "Deeplink scenario 1",
+    state: "ready",
+    score: 62,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Review",
+    timestamp: "2026-09-01T08:00:00Z",
+    tags: ["demo", "deeplink", "ready"],
+  },
+  {
+    id: "deeplink-2",
+    title: "Deeplink scenario 2",
+    state: "loading",
+    score: 69,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Retry",
+    timestamp: "2026-09-02T09:07:00Z",
+    tags: ["demo", "deeplink", "loading"],
+  },
+  {
+    id: "deeplink-3",
+    title: "Deeplink scenario 3",
+    state: "success",
+    score: 76,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Continue",
+    timestamp: "2026-09-03T10:14:00Z",
+    tags: ["demo", "deeplink", "success"],
+  },
+  {
+    id: "deeplink-4",
+    title: "Deeplink scenario 4",
+    state: "warning",
+    score: 83,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Recheck",
+    timestamp: "2026-09-04T11:21:00Z",
+    tags: ["demo", "deeplink", "warning"],
+  },
+  {
+    id: "deeplink-5",
+    title: "Deeplink scenario 5",
+    state: "error",
+    score: 90,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Upgrade",
+    timestamp: "2026-09-05T12:28:00Z",
+    tags: ["demo", "deeplink", "error"],
+  },
+  {
+    id: "deeplink-6",
+    title: "Deeplink scenario 6",
+    state: "empty",
+    score: 97,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Reset",
+    timestamp: "2026-09-06T13:35:00Z",
+    tags: ["demo", "deeplink", "empty"],
+  },
+  {
+    id: "deeplink-7",
+    title: "Deeplink scenario 7",
+    state: "ready",
+    score: 67,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Review",
+    timestamp: "2026-09-07T14:42:00Z",
+    tags: ["demo", "deeplink", "ready"],
+  },
+  {
+    id: "deeplink-8",
+    title: "Deeplink scenario 8",
+    state: "loading",
+    score: 74,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Retry",
+    timestamp: "2026-09-08T15:49:00Z",
+    tags: ["demo", "deeplink", "loading"],
+  },
+  {
+    id: "deeplink-9",
+    title: "Deeplink scenario 9",
+    state: "success",
+    score: 81,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Continue",
+    timestamp: "2026-09-09T16:56:00Z",
+    tags: ["demo", "deeplink", "success"],
+  },
+  {
+    id: "deeplink-10",
+    title: "Deeplink scenario 10",
+    state: "warning",
+    score: 88,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Recheck",
+    timestamp: "2026-09-10T17:03:00Z",
+    tags: ["demo", "deeplink", "warning"],
+  },
+  {
+    id: "deeplink-11",
+    title: "Deeplink scenario 11",
+    state: "error",
+    score: 95,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Upgrade",
+    timestamp: "2026-09-11T08:10:00Z",
+    tags: ["demo", "deeplink", "error"],
+  },
+  {
+    id: "deeplink-12",
+    title: "Deeplink scenario 12",
+    state: "empty",
+    score: 65,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Reset",
+    timestamp: "2026-09-12T09:17:00Z",
+    tags: ["demo", "deeplink", "empty"],
+  },
+  {
+    id: "deeplink-13",
+    title: "Deeplink scenario 13",
+    state: "ready",
+    score: 72,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Review",
+    timestamp: "2026-09-13T10:24:00Z",
+    tags: ["demo", "deeplink", "ready"],
+  },
+  {
+    id: "deeplink-14",
+    title: "Deeplink scenario 14",
+    state: "loading",
+    score: 79,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Retry",
+    timestamp: "2026-09-14T11:31:00Z",
+    tags: ["demo", "deeplink", "loading"],
+  },
+  {
+    id: "deeplink-15",
+    title: "Deeplink scenario 15",
+    state: "success",
+    score: 86,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Continue",
+    timestamp: "2026-09-15T12:38:00Z",
+    tags: ["demo", "deeplink", "success"],
+  },
+  {
+    id: "deeplink-16",
+    title: "Deeplink scenario 16",
+    state: "warning",
+    score: 93,
+    detail: "Deterministic mock state for deeplink; safe for demos and visual QA.",
+    action: "Recheck",
+    timestamp: "2026-09-16T13:45:00Z",
+    tags: ["demo", "deeplink", "warning"],
+  }
+];
+export function getDeeplink(id:string): DeeplinkFixture|undefined { return DEEPLINK.find(item=>item.id===id); }
+export function byStateDeeplink(state:DeeplinkFixture['state']): DeeplinkFixture[] { return DEEPLINK.filter(item=>item.state===state); }
+export function featuredDeeplink(): DeeplinkFixture { return DEEPLINK[0]; }
+export function countDeeplink(): number { return DEEPLINK.length; }
+export function summaryDeeplink(): string { return `$<built-in function len> fixtures for deeplink`; }
+export const DEEPLINK_README = "Use deeplink fixtures for deterministic mock screenshots and scripted demo states.";
+export const DEEPLINK_STATES = ['ready','loading','success','warning','error','empty'] as const;
+export function hasErrorDeeplink(): boolean { return DEEPLINK.some(item=>item.state==='error'); }
+export function hasLoadingDeeplink(): boolean { return DEEPLINK.some(item=>item.state==='loading'); }
+export function hasEmptyDeeplink(): boolean { return DEEPLINK.some(item=>item.state==='empty'); }
+export function averageScoreDeeplink(): number { return Math.round(DEEPLINK.reduce((a,b)=>a+b.score,0)/Math.max(DEEPLINK.length,1)); }
+export function maxScoreDeeplink(): number { return Math.max(...DEEPLINK.map(item=>item.score)); }
+export function minScoreDeeplink(): number { return Math.min(...DEEPLINK.map(item=>item.score)); }
+export const DEEPLINK_VERSION = 'v6';
+export const DEEPLINK_SOURCE = 'demo-only';
+export function isDemoOnlyDeeplink(): true { return true; }

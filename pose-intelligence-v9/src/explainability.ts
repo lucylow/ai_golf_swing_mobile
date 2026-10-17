@@ -1,0 +1,4 @@
+import { FeatureValue, PatternHypothesis, CoachInsight } from './types';
+import { clamp01 } from './math';
+export function explain(pattern:PatternHypothesis|null,features:FeatureValue[]):CoachInsight|null{if(!pattern)return null;const related=features.filter(f=>pattern.evidence.some(e=>e.startsWith(f.name+'='))).map(f=>f.name);const title=pattern.label;const explanation=pattern.evidence.length?`The analysis found ${pattern.evidence[0].toLowerCase()}. This is an observed movement pattern, not a diagnosis.`:'The analysis found a movement pattern with limited supporting evidence.';const action=pattern.id==='early_extension'?'Practice a hip-depth drill, then re-record three swings.':pattern.id==='sway'?'Use a centered-rotation drill and recheck head/pelvis stability.':'Repeat the recommended drill and verify the same pattern across multiple swings.';return{title,explanation,action,confidence:clamp01(pattern.confidence),relatedFeatures:related};}
+

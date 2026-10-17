@@ -1,0 +1,38 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = run;
+const assert_1 = require("./assert");
+const fixture_1 = require("./fixture");
+const mediapipeContract_1 = require("../src/mediapipeContract");
+const opencvFallback_1 = require("../src/opencvFallback");
+const modelAssets_1 = require("../src/modelAssets");
+const frameBudget_1 = require("../src/frameBudget");
+const algorithmV9_1 = require("../src/algorithmV9");
+const runAll_1 = require("../src/rules/runAll");
+const datasetSplits_1 = require("../src/data/datasetSplits");
+const drift_1 = require("../src/eval/drift");
+const quantization_1 = require("../src/runtime/quantization");
+const devicePolicy_1 = require("../src/runtime/devicePolicy");
+function run() {
+    (0, assert_1.assert)(mediapipeContract_1.defaultMediaPipeOptionsV9.runningMode === 'LIVE_STREAM', 'MediaPipe mode');
+    (0, assert_1.assert)((0, mediapipeContract_1.validateMediaPipeTimestamp)(10, 20).valid, 'monotonic timestamp');
+    (0, assert_1.assert)(!(0, mediapipeContract_1.validateMediaPipeTimestamp)(20, 20).valid, 'duplicate timestamp rejected');
+    const guard = new mediapipeContract_1.LiveStreamTimestampGuard();
+    (0, assert_1.assert)(guard.accept(10) && !guard.accept(10) && guard.accept(20), 'guard');
+    const frame = (0, fixture_1.makeFrame)(0);
+    const roi = (0, opencvFallback_1.roiFromPose)(frame);
+    (0, assert_1.assert)(roi.width > 0 && roi.height > 0, 'roi');
+    (0, assert_1.assert)((0, opencvFallback_1.acceptFallbackFrame)(0.8, 0.8), 'fallback');
+    (0, assert_1.assert)((0, modelAssets_1.validateAssetConfig)(modelAssets_1.defaultModelAsset).length === 0, 'model asset');
+    const budget = new frameBudget_1.FrameBudgetController(30, 2);
+    (0, assert_1.assert)(budget.decide(frame, 0).accept, 'frame budget');
+    const result = new algorithmV9_1.GolfPoseAlgorithmV9().analyze((0, fixture_1.makeFrames)(90));
+    (0, assert_1.assert)(result.features.length >= 10, 'advanced features');
+    (0, assert_1.assert)(result.events.length >= 4, 'advanced events');
+    (0, assert_1.assert)((0, runAll_1.runAllRules)((0, fixture_1.makeFrames)(90)).length >= 60, 'rule bank');
+    (0, assert_1.assert)((0, datasetSplits_1.deterministicSplit)('subject-a') === (0, datasetSplits_1.deterministicSplit)('subject-a'), 'deterministic split');
+    (0, assert_1.assert)((0, datasetSplits_1.detectSubjectLeakage)(['a'], ['b'], ['c']).pass, 'split leakage');
+    (0, assert_1.assert)((0, drift_1.distributionShift)([1, 1, 1], [1, 1, 1]) === 0, 'drift baseline');
+    (0, assert_1.assert)((0, quantization_1.chooseQuantization)('low').mode === 'int8', 'low device quantization');
+    (0, assert_1.assert)((0, devicePolicy_1.policyForClass)('high').targetFps === 30, 'high device policy');
+}

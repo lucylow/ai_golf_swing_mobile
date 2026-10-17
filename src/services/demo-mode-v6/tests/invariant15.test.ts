@@ -1,0 +1,2 @@
+import {createDemoStore} from "../src/data/store";
+export function invariant15(){const a=createDemoStore(73194),b=createDemoStore(73194);if(a.users.length<20)throw new Error("users");if(a.sessions.length<120)throw new Error("sessions");if(a.swings.length<500)throw new Error("swings");if(a.poses.length<200)throw new Error("poses");if(JSON.stringify(a.users)!==JSON.stringify(b.users))throw new Error("seed");return true;}

@@ -1,0 +1,15 @@
+{
+  "version": 9,
+  "focus": [
+    "mediapipe",
+    "opencv",
+    "pose-estimation",
+    "temporal-ai",
+    "golf-biomechanics",
+    "data-engineering"
+  ],
+  "runtimeNotes": "MediaPipe Tasks Pose Landmarker supports IMAGE, VIDEO and LIVE_STREAM. Live stream callbacks are asynchronous and may drop inputs under load.",
+  "generatedRuleCount": 61,
+  "depthModuleCount": 45,
+  "testCount": 60
+}

@@ -1,0 +1,5 @@
+export type CameraFormat={width:number;height:number;fps:number;minFps:number;maxFps:number;pixelFormat:string;supportsHighFPS:boolean;maxExposureSeconds:number};
+export type CameraCapabilities={formats:CameraFormat[];supports120:boolean;supports240:boolean;thermalClass:'low'|'medium'|'high'|'unknown'};
+export type CapturePreference={targetFps:120|240;preferredWidth:1920|1280|3840;preferredHeight:1080|720|2160;preferHEVC:boolean;maxLatencyMs:number};
+export function chooseHighFPS(caps:CameraCapabilities,pref:CapturePreference){const candidates=caps.formats.filter(f=>f.supportsHighFPS&&f.maxFps>=pref.targetFps).sort((a,b)=>{const da=Math.abs(a.fps-pref.targetFps)+Math.abs(a.width-pref.preferredWidth)/1000;const db=Math.abs(b.fps-pref.targetFps)+Math.abs(b.width-pref.preferredWidth)/1000;return da-db});return candidates[0]??caps.formats.filter(f=>f.maxFps>=120).sort((a,b)=>b.maxFps-a.maxFps)[0]??null;}
+export function recommendedExposureSeconds(fps:number){const frame=1/Math.max(fps,1);return Math.min(1/2000,frame*0.5);}

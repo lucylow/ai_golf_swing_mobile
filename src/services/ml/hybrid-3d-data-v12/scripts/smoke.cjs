@@ -1,0 +1,10 @@
+const { generateSyntheticSwing } = require('../dist/synthetic/generator.js');
+const { buildSyntheticDataset, defaultSyntheticDatasetConfig } = require('../dist/synthetic/datasetBuilder.js');
+const seq=generateSyntheticSwing({seed:73194,frames:120,fps:120,club:'driver',cameraView:'face_on'});
+if(seq.frames.length!==120) throw new Error('bad frame count');
+if(seq.frames.some(f=>f.landmarks.length!==33)) throw new Error('bad landmark count');
+if(!seq.frames.some(f=>f.phase==='P7')) throw new Error('bad phase labels');
+const ds=buildSyntheticDataset({...defaultSyntheticDatasetConfig(73194),subjects:4,sessionsPerSubject:2,swingsPerSession:3,frames:90});
+if(ds.length!==24) throw new Error('bad dataset size');
+if(new Set(ds.map(x=>x.meta.subjectId)).size!==4) throw new Error('subject split source issue');
+console.log(JSON.stringify({singleSwingFrames:seq.frames.length,landmarks:seq.frames[0].landmarks.length,phaseSet:[...new Set(seq.frames.map(f=>f.phase))],records:ds.length,subjects:new Set(ds.map(x=>x.meta.subjectId)).size}));

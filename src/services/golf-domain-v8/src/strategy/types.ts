@@ -1,0 +1,23 @@
+export type Vec2 = { x: number; y: number };
+export type LieV8 = 'tee' | 'fairway' | 'first-cut' | 'rough' | 'deep-rough' | 'sand' | 'recovery' | 'green' | 'hazard' | 'ob';
+export type SurfacePolygon = { id: string; points: Vec2[]; lie: LieV8 };
+export type HazardV8 = { id: string; kind: 'water' | 'bunker' | 'ob' | 'trees' | 'native'; polygon: SurfacePolygon; penaltyStrokes: number; recoveryPenalty: number };
+export type GreenModel = { center: Vec2; radiusYards: number; frontYards: number; backYards: number; pin: Vec2 };
+export type HoleModelV8 = {
+  hole: number;
+  par: 3 | 4 | 5;
+  tee: Vec2;
+  fairway: SurfacePolygon[];
+  green: GreenModel;
+  hazards: HazardV8[];
+  totalYards: number;
+  elevationFt: number;
+  windMph: number;
+  windDirectionDeg: number;
+  temperatureF?: number;
+};
+export type ShotDispersion = { forwardMean: number; forwardStd: number; lateralMean: number; lateralStd: number; correlation: number };
+export type ClubStrategyProfile = { clubId: string; name: string; carryYards: number; totalYards: number; dispersion: ShotDispersion; missLeftProbability: number; missRightProbability: number; penaltyProbability: number; }; 
+export type StrategyCandidate = { id: string; label: string; clubId: string; target: Vec2; aimBiasYards: number; expectedScore: number; birdieProbability: number; parProbability: number; bogeyOrWorseProbability: number; penaltyProbability: number; recoveryProbability: number; confidence: number; rationale: string[] };
+export type SimulationOptions = { iterations: number; seed: number; riskAversion: number; targetPenaltyWeight: number; }; 
+export type ShotOutcome = { finalPosition: Vec2; lie: LieV8; strokesUsed: number; penalty: boolean; hazardId?: string; }; 

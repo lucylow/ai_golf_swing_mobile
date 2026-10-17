@@ -1,0 +1,31 @@
+{
+  "version": "v8",
+  "totalFiles": 538,
+  "totalLines": 11972,
+  "sourceTsFiles": 450,
+  "testTsFiles": 65,
+  "routeTsxFiles": 12,
+  "newCapabilities": [
+    "real launch-monitor calibration workflow",
+    "course-aware deterministic Monte Carlo strategy simulation",
+    "adaptive drill progression logic"
+  ],
+  "calibrationReferenceFields": [
+    "ballSpeedMph",
+    "launchAngleDeg",
+    "azimuthDeg",
+    "spinRpm",
+    "spinAxisDeg",
+    "carryYards",
+    "totalYards",
+    "clubSpeedMph",
+    "smashFactor",
+    "clubPathDeg",
+    "attackAngleDeg",
+    "faceAngleDeg",
+    "dynamicLoftDeg",
+    "impactOffsetMm",
+    "closureRateDegPerSec"
+  ],
+  "largeReferenceSamples": 1200
+}

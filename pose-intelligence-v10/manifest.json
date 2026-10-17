@@ -1,0 +1,38 @@
+{
+  "version": 10,
+  "focus": [
+    "3d-pose",
+    "smplx-adapter",
+    "ekf-kinematics",
+    "st-gcn",
+    "temporal-transformer",
+    "p1-p10",
+    "high-fps-club-ball",
+    "subframe-impact",
+    "launch-vector",
+    "data-evaluation"
+  ],
+  "modelRuntime": "runtime-agnostic; plug in trained native/on-device model assets",
+  "sourceCompatibility": "MediaPipe-style 33 3D landmarks + world landmarks",
+  "estimatedGeneratedCodeLines": 11104,
+  "testFiles": 9,
+  "sourceFiles": 538,
+  "generatedUtilityCount": 547,
+  "deeperModules": [
+    "3d-mesh / HMR contracts",
+    "SMPL-X adapter boundary",
+    "EKF occlusion recovery",
+    "MobileViT patch/token primitives",
+    "ST-GCN + temporal transformer",
+    "P1-P10 event outputs",
+    "high-FPS club/ball fusion",
+    "sub-frame impact refinement",
+    "feature catalog",
+    "production mode selection",
+    "replay infrastructure"
+  ],
+  "featureLibraryFiles": 487,
+  "generatedFeatureCount": 487,
+  "validatedAllTsFiles": 547,
+  "validatedAllTsLines": 11147
+}

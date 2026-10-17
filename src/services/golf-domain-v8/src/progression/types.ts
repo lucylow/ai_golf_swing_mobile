@@ -1,0 +1,8 @@
+export type SkillV8 = 'driver' | 'iron-contact' | 'face-control' | 'path-control' | 'transition' | 'tempo' | 'wedge-distance' | 'pitching' | 'chipping' | 'bunker' | 'putting-start-line' | 'putting-distance' | 'course-management';
+export type EvidenceKind = 'successful-rep' | 'failed-rep' | 'clean-swing' | 'target-hit' | 'miss-left' | 'miss-right' | 'pressure-success' | 'fat' | 'thin' | 'toe' | 'heel' | 'three-putt' | 'penalty' | 'coach-confirmed';
+export type SkillEvidence = { id: string; skill: SkillV8; timestampMs: number; kind: EvidenceKind; quality: number; difficulty: number; context: 'practice' | 'range' | 'course' | 'pressure'; notes?: string };
+export type DrillStep = { id: string; name: string; reps: number; target: string; passThreshold: number; cue: string; }; 
+export type DrillDefinitionV8 = { id: string; skill: SkillV8; title: string; objective: string; difficulty: number; steps: DrillStep[]; prerequisite?: string; progressionRule: string; regressionRule: string; estimatedMinutes: number; };
+export type MasteryStateV8 = { skill: SkillV8; mastery: number; confidence: number; fatigue: number; streak: number; currentDifficulty: number; lastPracticedAt?: number; attempts: number; successes: number; recentScore: number; recentVariance: number; readyForNextLevel: boolean; needsRegression: boolean; };
+export type ProgressionProfileV8 = { golferId: string; skills: Partial<Record<SkillV8, MasteryStateV8>>; maxDailyIntensity: number; preference: 'technical' | 'feel' | 'mixed'; }; 
+export type DrillRecommendationV8 = { drill: DrillDefinitionV8; reason: string; progression: 'advance' | 'maintain' | 'regress' | 'recover' | 'introduce'; expectedSuccess: number; confidence: number; };

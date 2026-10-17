@@ -1,0 +1,7 @@
+import { FeatureValue, PatternHypothesis, PoseFrame } from './types';
+import { MP33,get } from './landmarks';
+import { distance3, clamp01, mean } from './math';
+export function patternEvidence(frames:PoseFrame[],feature:FeatureValue,label:string,id:string,threshold:number):PatternHypothesis{const score=clamp01(Math.abs(feature.value)/Math.max(threshold,1e-3));return{id,label,score,confidence:clamp01(0.45*feature.confidence+0.55*score),evidence:[`${feature.name}=${feature.value.toFixed(2)} ${feature.unit}`]};}
+export function earlyExtension(frames:PoseFrame[]):PatternHypothesis{const hips=frames.map(f=>{const l=get(f,MP33.LEFT_HIP),r=get(f,MP33.RIGHT_HIP);return l&&r?(l.y+r.y)/2:NaN;}).filter(Number.isFinite);const delta=hips.length>1?hips[hips.length-1]-hips[Math.floor(hips.length*0.7)]:0;return{id:'early_extension',label:'Early extension tendency',score:clamp01(Math.abs(delta)*8),confidence:clamp01(0.55+Math.abs(delta)*2),evidence:[`pelvis_vertical_change=${delta.toFixed(3)}`]};}
+export function sway(frames:PoseFrame[]):PatternHypothesis{const nose=frames.map(f=>get(f,MP33.NOSE)).filter(Boolean) as NonNullable<ReturnType<typeof get>>[];if(!nose.length)return{id:'sway',label:'Lateral sway tendency',score:0,confidence:0,evidence:[]};const xs=nose.map(p=>p.x),m=mean(xs);const rms=Math.sqrt(mean(xs.map(x=>(x-m)**2)));return{id:'sway',label:'Lateral sway tendency',score:clamp01(rms*10),confidence:clamp01(0.5+rms*3),evidence:[`nose_rms=${rms.toFixed(3)}`]};}
+

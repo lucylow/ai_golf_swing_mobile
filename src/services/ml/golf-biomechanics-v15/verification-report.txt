@@ -1,0 +1,9 @@
+V15 verification
+
+TypeScript strict compilation: PASS
+Source files: 94
+Source lines: 0
+Structural import check: PASS
+Runtime smoke: PASS
+Synthetic fixture metrics: 13
+Synthetic fixture reliability: 0.9401777075683023

@@ -1,0 +1,4 @@
+import {PoseFrame,CameraCalibration} from '../../types';
+import {rotateY} from '../geometry/vec3';
+export interface CameraNormalizedFrame{frame:PoseFrame;quality:number;scale:number;notes:string[];}
+export function canonicalizeFrame(frame:PoseFrame,camera:CameraCalibration):CameraNormalizedFrame{const yaw=camera.yawDeg,pitch=camera.pitchDeg,roll=camera.rollDeg;const rotated=frame.landmarks.map(p=>{let q=rotateY({x:p.x,y:p.y,z:p.z},-yaw);const pr=pitch*Math.PI/180,c=Math.cos(pr),s=Math.sin(pr);q={x:q.x,y:q.y*c-q.z*s,z:q.y*s+q.z*c};const rr=roll*Math.PI/180,cr=Math.cos(rr),sr=Math.sin(rr);return{...p,x:q.x*cr-q.y*sr,y:q.x*sr+q.y*cr,z:q.z};});const body=Math.max(1,(camera.distanceM??1));return{frame:{...frame,landmarks:rotated},quality:camera.width>0&&camera.height>0?.95:.4,scale:1/body,notes:camera.rollDeg?['roll normalized']:[]};}

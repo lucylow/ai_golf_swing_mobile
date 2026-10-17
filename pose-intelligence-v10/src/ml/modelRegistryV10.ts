@@ -1,0 +1,3 @@
+export type ModelArtifact={id:string;task:'pose'|'mesh'|'phase'|'club'|'ball'|'quality';version:string;runtime:'coreml'|'mediapipe'|'tflite'|'opencv'|'mock';sha256:string;quantization:'fp32'|'fp16'|'int8';inputShape:number[];outputShape:number[];minDeviceTier:'low'|'mid'|'high';licensedForCommercialUse:boolean};
+export type Registry={artifacts:ModelArtifact[]};
+export function resolveModel(r:Registry,task:ModelArtifact['task'],runtime:ModelArtifact['runtime']){return r.artifacts.filter(x=>x.task===task&&x.runtime===runtime&&x.licensedForCommercialUse).sort((a,b)=>b.version.localeCompare(a.version))[0]??null;}

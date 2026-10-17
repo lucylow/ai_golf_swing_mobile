@@ -1,0 +1,20 @@
+import { Vec2, Vec3 } from './types';
+
+export const clamp=(v:number,lo:number,hi:number)=>Math.max(lo,Math.min(hi,v));
+export const lerp=(a:number,b:number,t:number)=>a+(b-a)*t;
+export const mean=(xs:number[])=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:0;
+export const variance=(xs:number[])=>{const m=mean(xs);return xs.length?mean(xs.map(x=>(x-m)**2)):0;};
+export const sd=(xs:number[])=>Math.sqrt(variance(xs));
+export const median=(xs:number[])=>{if(!xs.length)return 0;const s=[...xs].sort((a,b)=>a-b),m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;};
+export const mad=(xs:number[])=>{const m=median(xs);return median(xs.map(x=>Math.abs(x-m)));};
+export const v2=(a:Vec2,b:Vec2)=>({x:a.x-b.x,y:a.y-b.y});
+export const v3=(a:Vec3,b:Vec3)=>({x:a.x-b.x,y:a.y-b.y,z:a.z-b.z});
+export const dot=(a:Vec3,b:Vec3)=>a.x*b.x+a.y*b.y+a.z*b.z;
+export const cross=(a:Vec3,b:Vec3)=>({x:a.y*b.z-a.z*b.y,y:a.z*b.x-a.x*b.z,z:a.x*b.y-a.y*b.x});
+export const norm=(a:Vec3)=>Math.sqrt(dot(a,a));
+export const unit=(a:Vec3)=>{const n=norm(a)||1;return{x:a.x/n,y:a.y/n,z:a.z/n};};
+export const distance=(a:Vec3,b:Vec3)=>norm(v3(a,b));
+export const angleDeg=(a:Vec3,b:Vec3)=>Math.acos(clamp(dot(unit(a),unit(b)),-1,1))*180/Math.PI;
+export const wrapDeg=(d:number)=>((d+180)%360+360)%360-180;
+export const weightedMean=(pairs:Array<[number,number]>)=>{let n=0,d=0;for(const [x,w] of pairs){n+=x*w;d+=w;}return d?n/d:0;};
+export const percentile=(xs:number[],p:number)=>{if(!xs.length)return 0;const s=[...xs].sort((a,b)=>a-b);const i=clamp((s.length-1)*p,0,s.length-1);const lo=Math.floor(i),hi=Math.ceil(i);return lerp(s[lo],s[hi],i-lo);};

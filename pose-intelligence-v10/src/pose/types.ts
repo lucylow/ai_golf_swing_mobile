@@ -1,0 +1,11 @@
+import { Vec3 } from '../core/math';
+export type ConfidenceBreakdown={detection:number;presence:number;visibility:number;tracking:number;combined:number};
+export type PoseJoint={id:number;name:string;position:Vec3;normalized:Vec3;confidence:ConfidenceBreakdown};
+export type PoseFrame3D={timestampMs:number;frameIndex:number;width:number;height:number;fps:number;joints:PoseJoint[];source:'mediapipe'|'mesh'|'opencv'|'mock';cameraView:'side'|'down_the_line'|'front'|'unknown';latencyMs:number};
+export type WorldPoint={position:Vec3;confidence:number};
+export type MeshFrame={timestampMs:number;vertices:Vec3[];joints:Vec3[];shape:number[];pose:number[];expression:number[];confidence:number;source:'smplx'|'other_mesh'};
+export type KinematicFrame={timestampMs:number;pelvisTiltDeg:number;thoraxTiltDeg:number;hipTurnDeg:number;shoulderTurnDeg:number;xFactorDeg:number;xFactorStretchDeg:number;handSpeed:number;clubSpeedProxy:number;confidence:number};
+export type CanonicalFrame=PoseFrame3D & {root:Vec3;scale:number;basis:{x:Vec3;y:Vec3;z:Vec3};localJoints:Vec3[]};
+export const POSE33_NAMES=['nose','left_eye_inner','left_eye','left_eye_outer','right_eye_inner','right_eye','right_eye_outer','left_ear','right_ear','mouth_left','mouth_right','left_shoulder','right_shoulder','left_elbow','right_elbow','left_wrist','right_wrist','left_pinky','right_pinky','left_index','right_index','left_thumb','right_thumb','left_hip','right_hip','left_knee','right_knee','left_ankle','right_ankle','left_heel','right_heel','left_foot_index','right_foot_index'] as const;
+export type Pose33Name=(typeof POSE33_NAMES)[number];
+export const POSE33_INDEX=Object.fromEntries(POSE33_NAMES.map((n,i)=>[n,i])) as Record<Pose33Name,number>;

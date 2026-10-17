@@ -79,6 +79,8 @@ export default function FigmaHomeScreen() {
           <IconSymbol name="arrow.up.right" size={19} color={FIGMA.colors.lime} />
         </Pressable>
 
+        <Pressable accessibilityRole="button" accessibilityLabel="Open golf intelligence" onPress={() => router.push("/golf-intelligence")} style={({ pressed }) => [styles.intelligenceCard, pressed && styles.pressed]}><View style={{ flex: 1 }}><Text style={styles.commandKicker}>NEWEST V9 SYSTEMS</Text><Text style={styles.commandTitle}>Open golf intelligence</Text><Text style={styles.commandCopy}>33-landmark pose pipeline, paired launch-monitor calibration, course strategy, and adaptive drills.</Text></View><IconSymbol name="arrow.up.right" size={19} color={FIGMA.colors.lime} /></Pressable>
+
         <Animated.View style={{ opacity: recent.opacity, transform: [{ translateY: recent.translateY }] }}>
           <SectionHeader title="Recent swings" kicker="YOUR PRACTICE HISTORY" link="SEE ALL" onPress={() => router.push("/(tabs)/library")} />
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
@@ -153,6 +155,7 @@ const styles = StyleSheet.create({
   commandKicker: { color: FIGMA.colors.lime, fontSize: 8, fontWeight: "900", letterSpacing: 0.8 },
   commandTitle: { color: FIGMA.colors.white, fontSize: 14, fontWeight: "900", marginTop: 3 },
   commandCopy: { color: FIGMA.colors.muted, fontSize: 9, lineHeight: 13, marginTop: 3 },
+  intelligenceCard: { minHeight: 86, borderRadius: 18, backgroundColor: "#142019", borderWidth: 1, borderColor: "rgba(170,255,0,0.38)", padding: 14, flexDirection: "row", alignItems: "center", gap: 12 },
   horizontalList: { gap: 10, paddingRight: 15, marginTop: 8 },
   priorityCard: { marginTop: 8, gap: 11 },
   priorityHeader: { flexDirection: "row", alignItems: "center", gap: 10 },

@@ -1,0 +1,2 @@
+import { SwingSequence } from "../types";
+export function summarizeDataset(sequences:SwingSequence[]){const subjects=new Set(sequences.map(s=>s.meta.subjectId));const sessions=new Set(sequences.map(s=>s.meta.sessionId));const views=new Set(sequences.map(s=>s.meta.cameraView));const clubs=new Set(sequences.map(s=>s.meta.club));const frames=sequences.reduce((n,s)=>n+s.frames.length,0);return {records:sequences.length,subjects:subjects.size,sessions:sessions.size,views:[...views],clubs:[...clubs],frames};}

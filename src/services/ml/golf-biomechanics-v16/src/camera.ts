@@ -1,0 +1,7 @@
+import {CameraCalibration,PoseFrame} from './types';
+import {LM} from './landmarks';
+import {rotateY,sub,midpoint} from './vector3';
+export interface CanonicalFrame {frame:PoseFrame; yawDeg:number; scale:number; groundOffset:number;}
+export function estimateCameraQuality(camera:CameraCalibration,frames:PoseFrame[]){const aspect=camera.width/Math.max(camera.height,1);const aspectScore=1-Math.min(.5,Math.abs(aspect-16/9));const tiltScore=1-Math.min(1,(Math.abs(camera.rollDeg)+Math.abs(camera.pitchDeg))/40);const stable=frames.length<2?1:1-Math.min(1,frames.slice(1).reduce((s,f,i)=>s+Math.abs((f.landmarks[LM.leftAnkle]?.x??0)-(frames[i].landmarks[LM.leftAnkle]?.x??0)),0)/Math.max(frames.length-1,1));return Math.max(0,Math.min(1,.35*aspectScore+.4*tiltScore+.25*stable));}
+export function canonicalizeFrame(frame:PoseFrame,camera:CameraCalibration):CanonicalFrame{const center=midpoint(frame.landmarks[LM.leftHip],frame.landmarks[LM.rightHip]);const yaw=-camera.yawDeg;const rotated=frame.landmarks.map((l)=>{const q=rotateY(sub(l,center),yaw);return {...l,x:q.x,y:q.y-center.y,z:q.z,index:l.index}});const shoulder=Math.hypot((rotated[LM.leftShoulder]?.x??0)-(rotated[LM.rightShoulder]?.x??0),(rotated[LM.leftShoulder]?.z??0)-(rotated[LM.rightShoulder]?.z??0));const scale=shoulder>1e-6?shoulder:1;return{frame:{...frame,landmarks:rotated},yawDeg:yaw,scale,groundOffset:((rotated[LM.leftAnkle]?.y??0)+(rotated[LM.rightAnkle]?.y??0))/2};}
+export function canonicalize(frames:PoseFrame[],camera:CameraCalibration){return frames.map(f=>canonicalizeFrame(f,camera).frame);}

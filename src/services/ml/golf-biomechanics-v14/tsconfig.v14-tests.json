@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.v14.json",
+  "compilerOptions": {"rootDir":"../../../../","outDir":"testdist"},
+  "include": ["src/**/*.ts","tests/**/*.ts"]
+}

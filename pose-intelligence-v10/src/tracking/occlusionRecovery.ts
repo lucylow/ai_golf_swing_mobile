@@ -1,0 +1,3 @@
+import { Vec3,lerp } from '../core/math';
+export type OcclusionFrame={timestampMs:number;point:Vec3;confidence:number;occluded:boolean};
+export function bridgeOcclusion(before:OcclusionFrame,after:OcclusionFrame,target:OcclusionFrame,maxGapMs=120):OcclusionFrame[]{const gap=after.timestampMs-before.timestampMs;if(gap<=0||gap>maxGapMs)return[];const count=Math.max(1,Math.floor(gap/16.67)-1);return Array.from({length:count},(_,i)=>{const t=(i+1)/(count+1);return{timestampMs:Math.round(lerp(before.timestampMs,after.timestampMs,t)),point:{x:lerp(before.point.x,after.point.x,t),y:lerp(before.point.y,after.point.y,t),z:lerp(before.point.z,after.point.z,t)},confidence:Math.min(before.confidence,after.confidence)*0.65,occluded:true}})}

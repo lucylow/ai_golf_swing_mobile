@@ -1,0 +1,3 @@
+export type BallisticObservation={launchAngleDeg:number;azimuthDeg:number;ballSpeedMps:number;spinRpm?:number;spinAxisDeg?:number;carryMeters?:number;confidence:number};
+export type CameraShotEstimate={launchAngleDeg:number;azimuthDeg:number;confidence:number;source:'camera'};
+export function compareToLaunchMonitor(camera:CameraShotEstimate,monitor:BallisticObservation){const angleError=Math.abs(camera.launchAngleDeg-monitor.launchAngleDeg);const azError=Math.abs(camera.azimuthDeg-monitor.azimuthDeg);return{angleError,azimuthError:azError,weightedError:0.6*angleError+0.4*azError,confidence:camera.confidence*monitor.confidence}}

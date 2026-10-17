@@ -1,0 +1,2 @@
+export class ModelHealth {private successes=0;private failures=0;private latencies:number[]=[];observe(ok:boolean,latencyMs:number){if(ok)this.successes++;else this.failures++;this.latencies.push(latencyMs);if(this.latencies.length>200)this.latencies.shift();}snapshot(){const total=this.successes+this.failures;const a=[...this.latencies].sort((x,y)=>x-y);return{successRate:total?this.successes/total:1,failureRate:total?this.failures/total:0,p95LatencyMs:a.length?a[Math.floor(a.length*0.95)]:0};}}
+

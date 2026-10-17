@@ -1,0 +1,16 @@
+import {Point3} from './types';
+export const p=(x=0,y=0,z=0):Point3=>({x,y,z});
+export const add=(a:Point3,b:Point3)=>p(a.x+b.x,a.y+b.y,a.z+b.z);
+export const sub=(a:Point3,b:Point3)=>p(a.x-b.x,a.y-b.y,a.z-b.z);
+export const mul=(a:Point3,s:number)=>p(a.x*s,a.y*s,a.z*s);
+export const div=(a:Point3,s:number)=>s===0?p():mul(a,1/s);
+export const dot=(a:Point3,b:Point3)=>a.x*b.x+a.y*b.y+a.z*b.z;
+export const cross=(a:Point3,b:Point3)=>p(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x);
+export const len=(a:Point3)=>Math.sqrt(dot(a,a));
+export const norm=(a:Point3)=>{const n=len(a);return n<1e-9?p():div(a,n)};
+export const dist=(a:Point3,b:Point3)=>len(sub(a,b));
+export const midpoint=(a:Point3,b:Point3)=>mul(add(a,b),.5);
+export const projectXZ=(a:Point3)=>({x:a.x,z:a.z});
+export const rotateY=(a:Point3,deg:number)=>{const r=deg*Math.PI/180,c=Math.cos(r),s=Math.sin(r);return p(c*a.x+s*a.z,a.y,-s*a.x+c*a.z)};
+export const lerp3=(a:Point3,b:Point3,t:number)=>add(mul(a,1-t),mul(b,t));
+export const finite3=(a:Point3)=>p(Number.isFinite(a.x)?a.x:0,Number.isFinite(a.y)?a.y:0,Number.isFinite(a.z)?a.z:0);

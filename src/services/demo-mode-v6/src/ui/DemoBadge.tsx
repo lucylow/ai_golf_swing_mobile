@@ -1,0 +1,1 @@
+import React from "react";import {Text,View} from "react-native";export function DemoBadge({label="DEMO MODE"}:{label?:string}){return <View style={{borderColor:"#B7FF3C",borderWidth:1,borderRadius:999,paddingHorizontal:10,paddingVertical:5,backgroundColor:"#102019"}}><Text style={{color:"#B7FF3C",fontWeight:"900",fontSize:10,letterSpacing:1}}>{label}</Text></View>;}

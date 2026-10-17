@@ -1,0 +1,5 @@
+import { MasteryStateV8, ProgressionProfileV8, SkillV8 } from './types';
+export type ScheduleItem = { skill: SkillV8; dueAt: number; priority: number; reason: string };
+export function spacingIntervalDays(state: MasteryStateV8): number { return Math.max(1, Math.round(7 - state.mastery * 4 + state.recentVariance * 10)); }
+export function scheduleSkill(state: MasteryStateV8, nowMs: number): ScheduleItem { const days = spacingIntervalDays(state); const priority = (1 - state.mastery) * 0.55 + (state.needsRegression ? 0.3 : 0) + state.recentVariance * 0.15; return { skill: state.skill, dueAt: (state.lastPracticedAt ?? nowMs) + days * 86_400_000, priority, reason: state.needsRegression ? 'Regression needed.' : state.readyForNextLevel ? 'Ready to progress.' : 'Spaced retention practice.' }; }
+export function buildSchedule(profile: ProgressionProfileV8, nowMs: number): ScheduleItem[] { return (Object.values(profile.skills) as MasteryStateV8[]).filter(Boolean).map((s) => scheduleSkill(s, nowMs)).sort((a, b) => a.dueAt - b.dueAt || b.priority - a.priority); }

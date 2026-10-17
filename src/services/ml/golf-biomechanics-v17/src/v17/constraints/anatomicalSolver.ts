@@ -1,0 +1,8 @@
+import {PoseFrame} from '../../types';
+import {LM} from '../../landmarks';
+import {distance} from '../geometry/vec3';
+import {clamp,median} from '../math/stats';
+export interface ConstraintResult{frames:PoseFrame[];score:number;violations:string[];boneBaselines:Record<string,number>;}
+function bone(f:PoseFrame,a:number,b:number){return distance(f.landmarks[a],f.landmarks[b]);}
+export function fitBoneBaselines(frames:PoseFrame[]){const pairs:{n:string;a:number;b:number}[]=[{n:'upperArmL',a:LM.leftShoulder,b:LM.leftElbow},{n:'forearmL',a:LM.leftElbow,b:LM.leftWrist},{n:'upperArmR',a:LM.rightShoulder,b:LM.rightElbow},{n:'forearmR',a:LM.rightElbow,b:LM.rightWrist},{n:'thighL',a:LM.leftHip,b:LM.leftKnee},{n:'shinL',a:LM.leftKnee,b:LM.leftAnkle},{n:'thighR',a:LM.rightHip,b:LM.rightKnee},{n:'shinR',a:LM.rightKnee,b:LM.rightAnkle}];const out:Record<string,number>={};for(const p of pairs)out[p.n]=median(frames.map(f=>bone(f,p.a,p.b)).filter(v=>Number.isFinite(v)));return out;}
+export function enforceAnatomy(frames:PoseFrame[]):ConstraintResult{const b=fitBoneBaselines(frames),violations:string[]=[];const fixed=frames.map(f=>{const copy={...f,landmarks:f.landmarks.map(x=>({...x}))};for(const pair of [['upperArmL',LM.leftShoulder,LM.leftElbow],['forearmL',LM.leftElbow,LM.leftWrist],['upperArmR',LM.rightShoulder,LM.rightElbow],['forearmR',LM.rightElbow,LM.rightWrist]] as [string,number,number][]) {const target=b[pair[0]]??0,d=bone(copy,pair[1],pair[2]);if(target>0&&Math.abs(d-target)>target*.25)violations.push(`${pair[0]} length outlier`);}return copy;});const score=clamp(1-violations.length/Math.max(1,frames.length*2));return{frames:fixed,score,violations:[...new Set(violations)],boneBaselines:b};}

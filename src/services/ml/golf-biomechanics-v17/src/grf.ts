@@ -1,0 +1,9 @@
+import {PoseFrame,Handedness,ForceProxy} from './types';
+import {LM} from './landmarks';
+import {dist} from './vector3';
+export function centerOfSupport(frame:PoseFrame){const l=frame.landmarks[LM.leftFoot],r=frame.landmarks[LM.rightFoot];return{x:(l.x+r.x)/2,y:(l.y+r.y)/2,z:(l.z+r.z)/2};}
+export function massCenterProxy(frame:PoseFrame){const ids=[LM.leftShoulder,LM.rightShoulder,LM.leftHip,LM.rightHip,LM.leftKnee,LM.rightKnee,LM.leftAnkle,LM.rightAnkle];const xs=ids.map(i=>frame.landmarks[i]?.x??0),ys=ids.map(i=>frame.landmarks[i]?.y??0),zs=ids.map(i=>frame.landmarks[i]?.z??0);return{x:xs.reduce((a,b)=>a+b,0)/xs.length,y:ys.reduce((a,b)=>a+b,0)/ys.length,z:zs.reduce((a,b)=>a+b,0)/zs.length};}
+export function estimateGRF(current:PoseFrame,prev:PoseFrame,dt:number,h:Handedness):ForceProxy{const cm=massCenterProxy(current),pm=massCenterProxy(prev);const support=centerOfSupport(current);const lateral=Math.max(-1,Math.min(1,(cm.x-support.x)*5));const vertical=(cm.y-pm.y)/Math.max(dt,.001);const leadKnee=h==='right'?LM.rightKnee:LM.leftKnee;const leadHip=h==='right'?LM.rightHip:LM.leftHip;const kneeDelta=current.landmarks[leadKnee].y-prev.landmarks[leadKnee].y;const hipDelta=current.landmarks[leadHip].x-prev.landmarks[leadHip].x;const rotational=hipDelta/Math.max(dt,.001);return{lateral,vertical:-vertical,rotational,confidence:.7};}
+export function forceSeries(frames:PoseFrame[],h:Handedness){const out:ForceProxy[]=[];for(let i=1;i<frames.length;i++){const dt=(frames[i].timestampMs-frames[i-1].timestampMs)/1000;out.push(estimateGRF(frames[i],frames[i-1],dt,h));}return out;}
+export function loadShift(frames:PoseFrame[]){if(frames.length<2)return 0;const first=massCenterProxy(frames[0]),last=massCenterProxy(frames[frames.length-1]);return last.x-first.x;}
+export function supportWidth(frame:PoseFrame){return dist(frame.landmarks[LM.leftFoot],frame.landmarks[LM.rightFoot]);}

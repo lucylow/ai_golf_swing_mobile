@@ -1,0 +1,6 @@
+import {BioMetric,ReferenceProfile} from '../../types';
+import {mean,std,robustZ,clamp} from '../math/stats';
+export interface PersonalBaseline{metric:string;median:number;spread:number;z:number;withinPersonalRange:boolean;sampleCount:number;available:boolean;}
+export function buildBaseline(metric:BioMetric,history:BioMetric[]):PersonalBaseline{const vals=history.filter(x=>x.name===metric.name&&Number.isFinite(x.value)).map(x=>x.value);if(!vals.length)return{metric:metric.name,median:0,spread:0,z:0,withinPersonalRange:false,sampleCount:0,available:false};const m=mean(vals),s=std(vals)||Math.max(.001,Math.abs(m)*.05),z=(metric.value-m)/s;return{metric:metric.name,median:m,spread:s,z,withinPersonalRange:Math.abs(z)<1.5,sampleCount:vals.length,available:true};}
+export function personalizedAnomaly(metric:BioMetric,history:BioMetric[]){const b=buildBaseline(metric,history);return{score:b.available?clamp(Math.abs(b.z)/3):0,confidence:b.available?metric.evidence.confidence:0,baseline:b};}
+export function compareToReference(metric:BioMetric,reference:ReferenceProfile){const vals=reference.metrics[metric.name]??[];return{z:robustZ(metric.value,vals),distance:vals.length?Math.abs(metric.value-mean(vals)):0};}

@@ -1,0 +1,3 @@
+import {mean,variance} from '../core/math';
+export type DriftReport={meanShift:number;varianceRatio:number;alert:boolean;score:number};
+export function compareDistributions(reference:number[],candidate:number[],thresholdMean=0.15,thresholdVar=0.3):DriftReport{const mr=mean(reference),mc=mean(candidate),vr=Math.max(variance(reference),1e-9),vc=variance(candidate);const meanShift=Math.abs(mc-mr),varianceRatio=vc/vr;const score=Math.min(1,meanShift/Math.max(thresholdMean,1e-9)+Math.abs(Math.log(Math.max(varianceRatio,1e-9)))/Math.max(thresholdVar,1e-9));return{meanShift,varianceRatio,alert:meanShift>thresholdMean||Math.abs(Math.log(Math.max(varianceRatio,1e-9)))>thresholdVar,score:Math.min(1,score)}}
